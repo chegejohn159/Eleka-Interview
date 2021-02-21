@@ -28,6 +28,7 @@ export default new Vuex.Store({
 
     async fetchdata({ commit }) {
       axios.request(options).then(function (response) {
+        console.log("This is the reso");
         console.log(response.data)
      commit('setdata', response.data)
   }).catch(function (error) {

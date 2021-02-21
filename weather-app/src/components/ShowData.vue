@@ -1,83 +1,53 @@
 <template>
-
-  <div>
-    <h3>{{allweather_data.city.name}}</h3>
-
-    <div class="container card bg-info">
-      <p>City ID: {{allweather_data.city.id}}</p>
-      <p>City Name: {{allweather_data.city.name}}</p>
-      <p>City Latitude: {{allweather_data.city.coord.lat}}</p>
-      <p>City Longitude: {{allweather_data.city.coord.lon}}</p>
-
+  <div>    
+    <div>
+      <p class="font-weight-light" style="margin-bottom:-0.1%;">City ID: <b>{{ allweather_data.city.id }}</b> </p>
+      <p class="font-weight-light" style="margin-bottom:-0.1%;">City Name: <b>{{ allweather_data.city.name }}</b></p>
+      <p class="font-weight-light" style="margin-bottom:-0.1%;">City Latitude: <b>{{ allweather_data.city.coord.lat }}</b></p>
+      <p class="font-weight-light" style="margin-bottom:-0.1%;">City Longitude: <b>{{ allweather_data.city.coord.lon }}</b> </p>
     </div>
 
-      <div class="container-fluid">
-          <h2>Weather Data Table</h2>   
-          
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Temparature</th>
-    <th>Humidity</th>
-    <th>Pressure</th>
-  </tr>
-  
-  <tr  v-for="wdata in allweather_data.list"
-        :key="wdata.dt">
-    <td>{{wdata.dt_txt}}</td>
-    <td>{{ wdata.main.temp }}</td>
-    <td>{{ wdata.main.pressure }}</td>
-     <td> {{ wdata.main.humidity }}</td>
-  </tr>
+    
+      <h2 class="font-weight-light text-center">Weather Data</h2>
 
-    <tr>
-    <th>Date</th>
-    <th>Temparature</th>
-    <th>Humidity</th>
-    <th>Pressure</th>
-  </tr>
-  
-</table>
-     <div> </div>
-        
-    </div>
-
+      <v-data-table
+        :headers="headers"
+        :items="allweather_data.list"
+        :items-per-page="10"
+        class="elevation-1"
+      ></v-data-table>
+      <div></div>
+    
   </div>
-  
-
-
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-    name: "ShowData",
-    methods: {
+  name: "ShowData",
+  data() {
+    return {
+      headers: [
+        {
+          text: "Date",
+          align: "start",
+          sortable: false,
+          value: "dt_txt",
+        },
+        { text: "Temparature", value: "main.temp" },
+        { text: "Humidity", value: "main.pressure" },
+        { text: "Pressure", value: "main.humidity" },
+      ],
+    };
+  },
+  methods: {
     ...mapActions(["fetchdata"]),
   },
-   computed: mapGetters(["allweather_data"]),
-    mounted() {
+  computed: mapGetters(["allweather_data"]),
+  mounted() {
     this.fetchdata();
-  }
-
-}
+  },
+};
 </script>
 
-<style scoped>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-</style>
+<style scoped></style>
