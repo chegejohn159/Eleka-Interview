@@ -24,4 +24,7 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Expected Results
+![Weather data](https://github.com/chegejohn159/Eleka-Interview/blob/chegejohn159/weather-app/screenshots/home.png)
+
+![Weather Graphs](https://github.com/chegejohn159/Eleka-Interview/blob/chegejohn159/weather-app/screenshots/graphs.png)
 
